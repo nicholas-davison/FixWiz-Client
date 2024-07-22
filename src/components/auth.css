@@ -1,0 +1,23 @@
+/* Styles for the container */
+.container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    height: 100vh; /* Full viewport height */
+  }
+  
+  /* Styles for the nav bar */
+  .container > .navbar {
+    width: 100%; /* Full width of the container */
+    
+    height: 60px; /* Height of the navbar */
+    padding: 10px; /* Optional padding */
+    box-sizing: border-box; /* Ensure padding is included in the height */
+  }
+  
+  /* Styles for the content area */
+  .container > .content {
+    flex: 1; /* Takes the remaining space */
+    padding: 20px; /* Optional padding */
+    overflow-y: auto; /* Scroll if content overflows */
+  }
+  
