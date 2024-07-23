@@ -15,6 +15,8 @@ export const UserServiceRequests = () => {
         getAndSetServiceRequests()
     }, [])
 
+
+    
     return (
         <>
             <h1>My Service Tickets</h1>
@@ -22,9 +24,9 @@ export const UserServiceRequests = () => {
                 {serviceRequests.map((ticket) => {
                     return (
                         <div className="italic" key={ticket.id}>
-                            <div>{ticket.id}</div>
-                            <div>{ticket.date_created}</div>
-                            <div>{ticket.urgency_level}</div>
+                            <div>Date Created: {ticket.date_created}</div>
+                            <div>Urgency Level: {ticket.urgency_level}</div>
+                            <button>View Details</button>
                         </div>
                     )
                 })}

@@ -1,27 +1,26 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import "./nav.css"
 
 export const NavBar = () => {
     const navigate = useNavigate()
     return (
-        <ul className="navbar pb-10">
+        <ul className="flex flex-col border-t-8 border-red-600">
             {
                 (JSON.parse(localStorage.getItem("user_type")) === "customer") ?
-                    <li className="navbar__item pl-10">
-                        <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/profile/service-requests"}>My Service Requests</NavLink>
+                    <li>
+                        <NavLink to={"/profile/service-requests"}>My Service Requests</NavLink>
                     </li> :
-                    <li className="navbar__item pl-10">
-                        <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/profile"}>All Service Requests</NavLink>
+                    <li >
+                        <NavLink to={"/profile"}>All Service Requests</NavLink>
                     </li>
 
             }
-            <li className="navbar__item pl-10">
-                <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/profile"}>Profile</NavLink>
+            <li>
+                <NavLink to={"/profile"}>Profile</NavLink>
             </li>
             {
                 (localStorage.getItem("fix_token") !== null) ?
-                    <li className="navbar__item">
-                        <button className="underline text-blue-600 hover:text-purple-700"
+                    <li >
+                        <button 
                             onClick={() => {
                                 localStorage.removeItem("fix_token")
                                 navigate('/login')
@@ -29,11 +28,11 @@ export const NavBar = () => {
                         >Logout</button>
                     </li> :
                     <>
-                        <li className="navbar__item">
-                            <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/login"}>Login</NavLink>
+                        <li >
+                            <NavLink to={"/login"}>Login</NavLink>
                         </li>
-                        <li className="navbar__item">
-                            <NavLink className="text-left underline text-blue-600 hover:text-purple-700" to={"/register"}>Register</NavLink>
+                        <li>
+                            <NavLink to={"/register"}>Register</NavLink>
                         </li>
                     </>
             }        
