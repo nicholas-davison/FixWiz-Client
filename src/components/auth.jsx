@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom"
 import { NavBar } from "./nav.jsx"
-import './auth.css' 
 
 export const Authorized = () => {
   if (localStorage.getItem("fix_token")) {
