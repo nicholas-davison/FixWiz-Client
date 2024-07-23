@@ -15,3 +15,24 @@ export const getServiceRequestById = async (pk) => {
       }
     }).then(res => res.json())
   }
+
+export const saveNewServiceRequest = async (newServiceRequestObj) => {
+  return await fetch("http://localhost:8000/service_requests", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${JSON.parse(localStorage.getItem("fix_token")).token}`
+      },
+      body: JSON.stringify(newServiceRequestObj)
+  })
+  }
+
+export const deleteServiceRequest = async (pk) => {
+  return await fetch(`http://localhost:8000/service_requests/${pk}`, {
+    method: "DELETE",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${JSON.parse(localStorage.getItem("fix_token")).token}`
+    }
+})
+}

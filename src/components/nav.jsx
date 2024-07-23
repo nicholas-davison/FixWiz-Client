@@ -6,9 +6,14 @@ export const NavBar = () => {
         <ul className="flex flex-col border-t-8 border-red-600">
             {
                 (JSON.parse(localStorage.getItem("user_type")) === "customer") ?
+                <>
                     <li>
                         <NavLink to={"/profile/service-requests"}>My Service Requests</NavLink>
-                    </li> :
+                    </li> 
+                    <li>
+                        <NavLink to={"/service-requests/new"}>New Service Request</NavLink>
+                    </li>
+                    </> :
                     <li >
                         <NavLink to={"/profile"}>All Service Requests</NavLink>
                     </li>
