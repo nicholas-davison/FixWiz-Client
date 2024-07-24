@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import { getAllCategories } from '../services/CategoryService'
-import { saveNewServiceRequest } from '../services/ServiceRequestService'
-import { useNavigate } from 'react-router-dom'
+import { getServiceRequestById, saveNewServiceRequest, updateServiceRequest } from '../services/ServiceRequestService'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export const ServiceRequestForm = () => {
     const [urgency, setUrgency] = useState("")
     const [allCategories, setAllCategories] = useState([])
-    const [selectedCategories, setSelectedCategories] = useState(new Set())
+    const [selectedCategories, setSelectedCategories] = useState([])
     const [description, setDescription] = useState("")
+    const { serviceTicketId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -17,20 +18,30 @@ export const ServiceRequestForm = () => {
         })
     }, [])
 
+    useEffect(() => {
+        if (serviceTicketId) {
+            getServiceRequestById(serviceTicketId).then(existingServiceRequest => {
+                setUrgency(existingServiceRequest.urgency_level)
+                setDescription(existingServiceRequest.description)
+                const categoryIds = existingServiceRequest.categories.map(cat => cat.id);
+                setSelectedCategories(categoryIds)
+                })
+            }
+    },[])
+
     const handleUrgencyChange = (event) => {
         setUrgency(event.target.value)
     }
-        const handleSelectedCategoriesChange = (id) => {
-            setSelectedCategories(prevSelected => {
-                const newSelected = new Set(prevSelected);
-                if (newSelected.has(id)) {
-                    newSelected.delete(id);
-                } else {
-                    newSelected.add(id);
-                }
-                return newSelected;
-            });
-        };
+
+    const handleSelectedCategoriesChange = (id) => {
+        setSelectedCategories(prevSelected => {
+            if (prevSelected.includes(id)) {
+                return prevSelected.filter(catId => catId !== id);
+            } else {
+                return [...prevSelected, id];
+            }
+        });
+    }
 
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value)
@@ -38,15 +49,21 @@ export const ServiceRequestForm = () => {
 
     const handleSaveNewServiceRequest = (event) => {
         event.preventDefault()
-        const selectedCategoriesArray = Array.from(selectedCategories)
         const newServiceRequestObj = {
             "urgency_level": urgency,
             "description": description,
-            "category_ids": selectedCategoriesArray
+            "category_ids": selectedCategories
         }
-        saveNewServiceRequest(newServiceRequestObj).then(() => {
-            navigate('/profile/service-requests')
-        })
+        if (serviceTicketId) {
+            updateServiceRequest(serviceTicketId, newServiceRequestObj).then(() => {
+                navigate('/profile/service-requests')
+            })
+        }
+        else {
+            saveNewServiceRequest(newServiceRequestObj).then(() => {
+                navigate('/profile/service-requests')
+            })
+        }
         
     }
 
@@ -70,6 +87,7 @@ export const ServiceRequestForm = () => {
                             type='checkbox'    
                             key={cat.id}
                             label={cat.name}
+                            checked={selectedCategories.includes(cat.id)}
                             onChange={() => handleSelectedCategoriesChange(cat.id)}   
                             />)
                         })}

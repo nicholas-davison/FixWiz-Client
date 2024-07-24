@@ -25,6 +25,7 @@ export const UserServiceRequests = () => {
                 {serviceRequests.map((ticket) => {
                     return (
                         <div className="italic" key={ticket.id}>
+                            <div>Service Request #: {ticket.id}</div>
                             <div>Date Created: {ticket.date_created}</div>
                             <div>Urgency Level: {ticket.urgency_level}</div>
                             <button onClick={() => {navigate(`/service-requests/${ticket.id}`)}}>View Details</button>

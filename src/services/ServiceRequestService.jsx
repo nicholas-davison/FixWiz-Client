@@ -26,6 +26,17 @@ export const saveNewServiceRequest = async (newServiceRequestObj) => {
       body: JSON.stringify(newServiceRequestObj)
   })
   }
+  
+  export const updateServiceRequest = async (pk, updatedServiceRequestObj) => {
+    return await fetch(`http://localhost:8000/service_requests/${pk}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${JSON.parse(localStorage.getItem("fix_token")).token}`
+        },
+        body: JSON.stringify(updatedServiceRequestObj)
+    })
+    }
 
 export const deleteServiceRequest = async (pk) => {
   return await fetch(`http://localhost:8000/service_requests/${pk}`, {
