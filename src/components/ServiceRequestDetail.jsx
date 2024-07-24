@@ -39,7 +39,7 @@ export const ServiceRequestDetail = () => {
                 Description:
                 <p>{currentTicket.description}</p>
             </div>
-            <button>Edit</button>
+            <button onClick={() => navigate("edit")}>Edit</button>
             <button onClick={handleDeleteRequest}>Delete</button>
         </div>
     )

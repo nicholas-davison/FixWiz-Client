@@ -22,7 +22,10 @@ export const ApplicationViews = () => {
             <Route path="/profile/service-requests" element={<UserServiceRequests/>}/>
             <Route path="/service-requests">
                 <Route index element={<UserServiceRequests/>}/>
-                <Route path=":serviceTicketId" element={<ServiceRequestDetail/>}/>
+                <Route path=":serviceTicketId">
+                  <Route index element={<ServiceRequestDetail/>}/>
+                  <Route path="edit" element={<ServiceRequestForm/>}/>
+                </Route>
                 <Route path="new" element={<ServiceRequestForm/>}/>
             </Route>
           </Route>
