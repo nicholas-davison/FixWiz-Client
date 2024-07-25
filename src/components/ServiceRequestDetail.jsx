@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { deleteServiceRequest, getServiceRequestById } from "../services/ServiceRequestService"
 import { useEffect, useState } from "react"
+import { Button, Card } from "react-bootstrap"
+import "./serviceticket.css"
 
 export const ServiceRequestDetail = () => {
     const {serviceTicketId} = useParams()
@@ -25,22 +27,23 @@ export const ServiceRequestDetail = () => {
 
     return (
         <div>
-            <h1> Service Request # {serviceTicketId}</h1>
-            <h2>Urgency: {currentTicket.urgency_level}</h2>
-            <div>
-                Categories:
-                <ul>
-                   {currentTicket.categories.map((cat) => {
-                    return <li key={cat.id}>{cat.name}</li>
-                    })}
-                </ul>
-            </div>
-            <div>
-                Description:
-                <p>{currentTicket.description}</p>
-            </div>
-            <button onClick={() => navigate("edit")}>Edit</button>
-            <button onClick={handleDeleteRequest}>Delete</button>
+            <Card className="ticket-detail-container">
+                <Card.Header className="header-container" as="h5">
+                    <span>Service Request # {serviceTicketId}</span>
+                    <span>Urgency: {currentTicket.urgency_level}</span>
+                </Card.Header>
+                <Card.Body>
+                    <Card.Title>{currentTicket.title}</Card.Title>
+                    <Card.Text>{currentTicket.description}</Card.Text>
+                    Categories:
+                    <Card.Text >
+                    {currentTicket.categories.map(cat => cat.name).join(', ')}</Card.Text>
+                <Card.Footer >
+                    <Button variant="warning" onClick={() => navigate("edit")}>Edit</Button>{' '}
+                    <Button variant="danger" onClick={handleDeleteRequest}>Delete</Button>
+                </Card.Footer>
+                </Card.Body>
+            </Card>
         </div>
     )
 }

@@ -1,53 +1,30 @@
 import { useEffect, useState } from "react"
-import { getUserServiceRequests } from "../services/ServiceRequestService"
-import { useNavigate } from "react-router-dom"
+import { getAllOpenServiceRequests } from "../services/ServiceRequestService"
 import { Card } from "react-bootstrap"
-import "./serviceticket.css"
+import { useNavigate } from "react-router-dom"
 
-export const UserServiceRequests = () => {
+export const AllServiceRequests = () => {
     const navigate = useNavigate()
-    const [serviceRequests, setServiceRequests] = useState([])
-    const userType = localStorage.getItem("user_type")
+    const [allOpenServiceRequests, setAllOpenServiceRequests] = useState([])
 
-    const getBorderColor = (urgencyLevel) => {
-        switch (urgencyLevel) {
-            case 'high':
-                return 'danger';
-            case 'medium':
-                return 'warning';
-            case 'low':
-                return 'success';
-        }
-    }
-
-
-    const getAndSetServiceRequests = () => {
-        getUserServiceRequests().then((res) => {
-            setServiceRequests(res)
+    const getAndSetAllOpenServiceRequests = () => {
+        getAllOpenServiceRequests().then((res) => {
+            setAllOpenServiceRequests(res)
         })
     }
 
     useEffect(() => {
-        getAndSetServiceRequests()
+        getAndSetAllOpenServiceRequests()
     }, [])
-
-
-
+    
     return (
         <>
-        {userType === "customer" ? (
-            <h1>My Service Tickets</h1>
-        ) : (
-            <h1>My Open Jobs</h1>
-        )
-        }
             <div className="ticket-container">
-                {serviceRequests.map((ticket) => {
+                {allOpenServiceRequests.map((ticket) => {
 
                     return (
                             <Card 
                                 key={ticket.id} 
-                                border={getBorderColor(ticket.urgency_level)}
                                 style={{ width: '75%', borderWidth: '1.75px', cursor: 'pointer', marginTop: '20px' }}
                                 onClick={() => navigate(`/service-requests/${ticket.id}`)}
                             >
