@@ -42,7 +42,7 @@ export const UserServiceRequests = () => {
                             <Card 
                                 key={ticket.id} 
                                 border={getBorderColor(ticket.urgency_level)}
-                                style={{ width: '75%', borderWidth: '1.5px', cursor: 'pointer', marginBottom: '20px' }}
+                                style={{ width: '75%', borderWidth: '1.5px', cursor: 'pointer', marginTop: '20px' }}
                                 onClick={() => navigate(`/service-requests/${ticket.id}`)}
                             >
                                 <Card.Header>Service Request # {ticket.id}</Card.Header>

@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import { getAllCategories } from '../services/CategoryService'
 import { getServiceRequestById, saveNewServiceRequest, updateServiceRequest } from '../services/ServiceRequestService'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
 
 export const ServiceRequestForm = () => {
     const [urgency, setUrgency] = useState("")
@@ -128,7 +129,7 @@ export const ServiceRequestForm = () => {
                     </div>
                 </Form.Group> 
                 <br/>   
-                <button onClick={handleSaveNewServiceRequest}>Submit</button>
+                <Button variant="success" onClick={handleSaveNewServiceRequest}>Submit</Button>
             </Form>
         </div>
     )
