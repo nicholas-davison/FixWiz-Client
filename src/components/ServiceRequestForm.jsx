@@ -8,6 +8,7 @@ export const ServiceRequestForm = () => {
     const [urgency, setUrgency] = useState("")
     const [allCategories, setAllCategories] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
+    const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const { serviceTicketId } = useParams()
     const navigate = useNavigate()
@@ -23,6 +24,7 @@ export const ServiceRequestForm = () => {
             getServiceRequestById(serviceTicketId).then(existingServiceRequest => {
                 setUrgency(existingServiceRequest.urgency_level)
                 setDescription(existingServiceRequest.description)
+                setTitle(existingServiceRequest.title)
                 const categoryIds = existingServiceRequest.categories.map(cat => cat.id);
                 setSelectedCategories(categoryIds)
                 })
@@ -46,12 +48,17 @@ export const ServiceRequestForm = () => {
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value)
     }
+    
+    const handleTitleChange = (event) => {
+        setTitle(event.target.value)
+    }
 
     const handleSaveNewServiceRequest = (event) => {
         event.preventDefault()
         const newServiceRequestObj = {
             "urgency_level": urgency,
             "description": description,
+            "title": title,
             "category_ids": selectedCategories
         }
         if (serviceTicketId) {
@@ -72,6 +79,19 @@ export const ServiceRequestForm = () => {
             <h1>New Service Request</h1>
             <Form>
                 <Form.Group>
+                    <div>
+                        <Form.Label>Title:</Form.Label>
+                            <Form.Control 
+                                as="input" 
+                                placeholder="What is this job about..." 
+                                value={title}
+                                name="title"
+                                onChange={handleTitleChange}
+                            />
+                    </div>
+                    <br/>
+                </Form.Group>  
+                <Form.Group>
                     <Form.Select value={urgency} onChange={handleUrgencyChange}>
                         <option value="" >How urgent is this request?</option>
                         <option value="high">High Priority</option>
@@ -79,6 +99,7 @@ export const ServiceRequestForm = () => {
                         <option value="low">Low Priority</option>
                     </Form.Select>
                 </Form.Group>
+                <br/>
                 <Form.Group>
                     <div> Job Type:
                         {allCategories.map((cat) => {
@@ -93,6 +114,7 @@ export const ServiceRequestForm = () => {
                         })}
                     </div>
                 </Form.Group>
+                <br/>
                 <Form.Group>
                     <div>
                         <Form.Label>Description of Job:</Form.Label>
@@ -104,7 +126,8 @@ export const ServiceRequestForm = () => {
                                 onChange={handleDescriptionChange}
                             />
                     </div>
-                </Form.Group>    
+                </Form.Group> 
+                <br/>   
                 <button onClick={handleSaveNewServiceRequest}>Submit</button>
             </Form>
         </div>
