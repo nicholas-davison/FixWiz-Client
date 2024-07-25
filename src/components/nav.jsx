@@ -18,7 +18,10 @@ export const NavBar = () => {
                                 <Nav.Link href="/profile/service-requests">My Service Requests</Nav.Link>
                                 <Nav.Link href="/service-requests/new">New Service Request</Nav.Link>
                             </> :
-                                <Nav.Link href="/profile">All Service Requests</Nav.Link>                       
+                            <>
+                                <Nav.Link href="/service-requests">All Service Requests</Nav.Link>
+                                <Nav.Link href="/profile/service-requests">My Jobs</Nav.Link>    
+                            </>                  
                         }
                         <Nav.Link href="/profile">Profile</Nav.Link>
                         <Nav.Link href="" onClick={() => {localStorage.removeItem("fix_token")
