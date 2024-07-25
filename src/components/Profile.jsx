@@ -8,7 +8,7 @@ export const Profile = () => {
 
 
     const getAndSetCurrentUser = async () => {
-       await getCurrentUser().then(res => setCurrentUser(res))
+       await getCurrentUser().then((res) => {setCurrentUser(res)})
     }
 
     useEffect(() => {
