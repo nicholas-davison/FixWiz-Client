@@ -1,0 +1,15 @@
+
+.intro-card {
+    text-align: center;
+    margin-top: 20%;
+    padding: 10% 25%;
+}
+
+.intro-card-title {
+    font-size: 3rem; 
+    font-weight: bold; 
+}
+
+.intro-card-text {
+    font-size: 1.5rem;
+}

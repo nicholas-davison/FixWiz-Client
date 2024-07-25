@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react"
 import { getUserServiceRequests } from "../services/ServiceRequestService"
 import { useNavigate } from "react-router-dom"
+import { Card } from "react-bootstrap"
+import "./serviceticket.css"
 
 export const UserServiceRequests = () => {
     const navigate = useNavigate()
     const [serviceRequests, setServiceRequests] = useState([])
+
+    const getBorderColor = (urgencyLevel) => {
+        switch (urgencyLevel) {
+            case 'high':
+                return 'danger';
+            case 'medium':
+                return 'warning';
+            case 'low':
+                return 'success';
+        }
+    }
+
 
     const getAndSetServiceRequests = () => {
         getUserServiceRequests().then((res) => {
@@ -21,18 +35,32 @@ export const UserServiceRequests = () => {
     return (
         <>
             <h1>My Service Tickets</h1>
-            <div>
+            <div className="ticket-container">
                 {serviceRequests.map((ticket) => {
+
                     return (
-                        <div className="italic" key={ticket.id}>
-                            <div>Service Request #: {ticket.id}</div>
-                            <div>Date Created: {ticket.date_created}</div>
-                            <div>Urgency Level: {ticket.urgency_level}</div>
-                            <button onClick={() => {navigate(`/service-requests/${ticket.id}`)}}>View Details</button>
-                        </div>
+                            <Card 
+                                key={ticket.id} 
+                                border={getBorderColor(ticket.urgency_level)}
+                                style={{ width: '75%', borderWidth: '1.5px', cursor: 'pointer', marginBottom: '20px' }}
+                                onClick={() => navigate(`/service-requests/${ticket.id}`)}
+                            >
+                                <Card.Header>Service Request # {ticket.id}</Card.Header>
+                                <Card.Body>
+                                    <Card.Title>{ticket.title}</Card.Title>
+                                    <Card.Text>
+                                        Date Created: {ticket.date_created}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Urgency Level: {ticket.urgency_level}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
                     )
                 })}
             </div>
         </>
     )
 }
+
+// <div key={waterfallObj.id} onClick={() => navigate(`/${waterfallObj.id}`)} style={{ cursor: 'pointer' }}></div>
