@@ -1,46 +1,32 @@
 import { NavLink, useNavigate } from "react-router-dom"
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 export const NavBar = () => {
     const navigate = useNavigate()
     return (
-        <ul className="flex flex-col border-t-8 border-red-600">
-            {
-                (JSON.parse(localStorage.getItem("user_type")) === "customer") ?
-                <>
-                    <li>
-                        <NavLink to={"/profile/service-requests"}>My Service Requests</NavLink>
-                    </li> 
-                    <li>
-                        <NavLink to={"/service-requests/new"}>New Service Request</NavLink>
-                    </li>
-                    </> :
-                    <li >
-                        <NavLink to={"/profile"}>All Service Requests</NavLink>
-                    </li>
-
-            }
-            <li>
-                <NavLink to={"/profile"}>Profile</NavLink>
-            </li>
-            {
-                (localStorage.getItem("fix_token") !== null) ?
-                    <li >
-                        <button 
-                            onClick={() => {
-                                localStorage.removeItem("fix_token")
-                                navigate('/login')
-                            }}
-                        >Logout</button>
-                    </li> :
-                    <>
-                        <li >
-                            <NavLink to={"/login"}>Login</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={"/register"}>Register</NavLink>
-                        </li>
-                    </>
-            }        
-        </ul>
+        <Navbar expand="lg" className="bg-body-tertiary">
+            <Container>
+                <Navbar.Brand href="/">FixWiz</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        {
+                            (JSON.parse(localStorage.getItem("user_type")) === "customer") ?
+                            <>
+                                <Nav.Link href="/profile/service-requests">My Service Requests</Nav.Link>
+                                <Nav.Link href="/service-requests/new">New Service Request</Nav.Link>
+                            </> :
+                                <Nav.Link href="/profile">All Service Requests</Nav.Link>                       
+                        }
+                        <Nav.Link href="/profile">Profile</Nav.Link>
+                        <Nav.Link href="" onClick={() => {localStorage.removeItem("fix_token")
+                                                            navigate('/login')
+                                                            }}>Logout</Nav.Link>
+                    </Nav>                                                      
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     )
 }
