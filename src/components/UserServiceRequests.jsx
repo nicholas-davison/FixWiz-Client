@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getUserServiceRequests } from "../services/ServiceRequestService"
 import { useNavigate } from "react-router-dom"
+import { Card } from "react-bootstrap"
 
 export const UserServiceRequests = () => {
     const navigate = useNavigate()
@@ -23,16 +24,30 @@ export const UserServiceRequests = () => {
             <h1>My Service Tickets</h1>
             <div>
                 {serviceRequests.map((ticket) => {
+
                     return (
-                        <div className="italic" key={ticket.id}>
-                            <div>Service Request #: {ticket.id}</div>
-                            <div>Date Created: {ticket.date_created}</div>
-                            <div>Urgency Level: {ticket.urgency_level}</div>
-                            <button onClick={() => {navigate(`/service-requests/${ticket.id}`)}}>View Details</button>
-                        </div>
+                            <Card 
+                                key={ticket.id} 
+                                border="primary" 
+                                style={{ width: '75%', borderWidth: '1.5px', cursor: 'pointer', marginBottom: '20px' }}
+                                onClick={() => navigate(`/service-requests/${ticket.id}`)}
+                            >
+                                <Card.Header>Service Request #: {ticket.id}</Card.Header>
+                                <Card.Body>
+                                    <Card.Title>Primary Card Title</Card.Title>
+                                    <Card.Text>
+                                        Date Created: {ticket.date_created}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        Urgency Level: {ticket.urgency_level}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
                     )
                 })}
             </div>
         </>
     )
 }
+
+// <div key={waterfallObj.id} onClick={() => navigate(`/${waterfallObj.id}`)} style={{ cursor: 'pointer' }}></div>
