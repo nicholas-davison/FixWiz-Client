@@ -8,3 +8,8 @@
 .ticket-detail-container {
     margin-top: 10%;
 }
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+}

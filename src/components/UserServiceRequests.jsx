@@ -42,10 +42,13 @@ export const UserServiceRequests = () => {
                             <Card 
                                 key={ticket.id} 
                                 border={getBorderColor(ticket.urgency_level)}
-                                style={{ width: '75%', borderWidth: '1.5px', cursor: 'pointer', marginTop: '20px' }}
+                                style={{ width: '75%', borderWidth: '1.75px', cursor: 'pointer', marginTop: '20px' }}
                                 onClick={() => navigate(`/service-requests/${ticket.id}`)}
                             >
-                                <Card.Header>Service Request # {ticket.id}</Card.Header>
+                                <Card.Header className="header-container">
+                                    <span>Service Request # {ticket.id}</span>
+                                    <span>Status: {ticket.status}</span>
+                                </Card.Header>
                                 <Card.Body>
                                     <Card.Title>{ticket.title}</Card.Title>
                                     <Card.Text>
@@ -62,5 +65,3 @@ export const UserServiceRequests = () => {
         </>
     )
 }
-
-// <div key={waterfallObj.id} onClick={() => navigate(`/${waterfallObj.id}`)} style={{ cursor: 'pointer' }}></div>

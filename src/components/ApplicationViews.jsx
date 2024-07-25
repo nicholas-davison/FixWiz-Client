@@ -8,6 +8,7 @@ import { Home } from '../pages/Home.jsx'
 import { UserServiceRequests } from "./UserServiceRequests.jsx"
 import { ServiceRequestDetail } from './ServiceRequestDetail.jsx'
 import { ServiceRequestForm } from './ServiceRequestForm.jsx'
+import { Profile } from './Profile.jsx'
 
 
 export const ApplicationViews = () => {
@@ -19,6 +20,7 @@ export const ApplicationViews = () => {
           <Route path="register" element={<Register/>}/>
           <Route element={<Authorized/>}>
             <Route path="/" element={<Home/>}/>
+            <Route path="/profile" element={<Profile/>}/>
             <Route path="/profile/service-requests" element={<UserServiceRequests/>}/>
             <Route path="/service-requests">
                 <Route index element={<UserServiceRequests/>}/>
