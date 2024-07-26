@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { deleteServiceRequest, getServiceRequestById } from "../services/ServiceRequestService"
+import { deleteServiceRequest, getServiceRequestById, updateServiceRequest } from "../services/ServiceRequestService"
 import { useEffect, useState } from "react"
 import { Button, Card } from "react-bootstrap"
 import "./serviceticket.css"
@@ -31,6 +31,18 @@ export const ServiceRequestDetail = () => {
         })
     }
 
+    const handleClaimTicket = (claim) => {
+        claim ? (
+            updateServiceRequest(serviceTicketId, {"contractor": userType, "date_claimed": null})
+            ) : (
+                updateServiceRequest(serviceTicketId, {"remove_contractor": "", "date_unclaimed": null})
+        )
+            navigate('/profile/service-requests')
+        
+    }
+
+
+
     return (
         <div>
             <Card className="ticket-detail-container">
@@ -45,20 +57,24 @@ export const ServiceRequestDetail = () => {
                     <Card.Text >
                     {currentTicket.categories.map(cat => cat.name).join(', ')}</Card.Text>
                 <Card.Footer >
-                {userType ? (
+                {
                 userType === "customer" ? (
                     <>
                         <Button variant="warning" onClick={() => navigate("edit")}>Edit</Button>{' '}
                         <Button variant="danger" onClick={handleDeleteRequest}>Delete</Button>
                     </>
                 ) : (
-                    <>
-                        <Button variant="warning" onClick={() => navigate("/")}>Claim</Button>{' '}
-                    </>
+                    currentTicket.contractor ? (
+                        <>
+                        <Button variant="warning" onClick={() => {handleClaimTicket(false)}}>Unclaim</Button>{' '}
+                        <Button variant="success" >Mark Complete</Button>
+                        </>
+
+                    ) : (
+                        <Button variant="warning" onClick={() => {handleClaimTicket(true)}}>Claim</Button>
+                    )                   
                 )
-            ) : (
-                <h1>Loading...</h1>
-            )}
+            }
                     
                 </Card.Footer>
                 </Card.Body>
