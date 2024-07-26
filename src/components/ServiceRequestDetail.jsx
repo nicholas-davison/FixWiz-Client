@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { deleteServiceRequest, getServiceRequestById } from "../services/ServiceRequestService"
+import { deleteServiceRequest, getServiceRequestById, updateServiceRequest } from "../services/ServiceRequestService"
 import { useEffect, useState } from "react"
 import { Button, Card } from "react-bootstrap"
 import "./serviceticket.css"
@@ -8,6 +8,12 @@ export const ServiceRequestDetail = () => {
     const {serviceTicketId} = useParams()
     const [currentTicket, setCurrentTicket] = useState({categories: []})
     const navigate = useNavigate()
+    const [userType, setUserType] = useState("");
+
+    useEffect(() => {
+        const type = JSON.parse(localStorage.getItem("user_type"))
+        setUserType(type);
+    }, []);
 
     const getAndSetCurrentTicket = async () => {
         await getServiceRequestById(serviceTicketId).then(res => {
@@ -25,6 +31,21 @@ export const ServiceRequestDetail = () => {
         })
     }
 
+    const handleClaimTicket = (claim) => {
+        claim ? (
+            updateServiceRequest(serviceTicketId, {"contractor": userType, "date_claimed": null})
+            ) : (
+                updateServiceRequest(serviceTicketId, {"remove_contractor": "", "date_unclaimed": null})
+        )
+        navigate('/profile/service-requests')
+    }
+
+    const handleCompleteTicket = () => {
+        updateServiceRequest(serviceTicketId, {"date_completed": null})
+        navigate('/profile/service-requests')
+    }
+
+
     return (
         <div>
             <Card className="ticket-detail-container">
@@ -39,8 +60,28 @@ export const ServiceRequestDetail = () => {
                     <Card.Text >
                     {currentTicket.categories.map(cat => cat.name).join(', ')}</Card.Text>
                 <Card.Footer >
-                    <Button variant="warning" onClick={() => navigate("edit")}>Edit</Button>{' '}
-                    <Button variant="danger" onClick={handleDeleteRequest}>Delete</Button>
+                {
+                userType === "customer" ? (
+                    <>
+                        <Button variant="warning" onClick={() => navigate("edit")}>Edit</Button>{' '}
+                        <Button variant="danger" onClick={handleDeleteRequest}>Delete</Button>
+                    </>
+                ) : (
+                    currentTicket.contractor ? (
+                        currentTicket.status === 'closed' ? (
+                            "**To Reopen ticket please contact an administrator**"
+                        ) : (
+                        <>
+                        <Button variant="warning" onClick={() => {handleClaimTicket(false)}}>Unclaim</Button>{' '}
+                        <Button variant="success" onClick={handleCompleteTicket}>Mark Complete</Button>
+                        </>
+                        )
+                    ) : (
+                        <Button variant="warning" onClick={() => {handleClaimTicket(true)}}>Claim</Button>
+                    )                   
+                )
+            }
+                    
                 </Card.Footer>
                 </Card.Body>
             </Card>
