@@ -16,6 +16,14 @@ export const getUserServiceRequests = async () => {
       }
     }).then(res => res.json())
   }
+  
+  export const getClosedUserServiceRequests = async () => {
+    return await fetch('http://localhost:8000/profile/service_requests?status=closed', {
+      headers: {
+          Authorization: `Token ${JSON.parse(localStorage.getItem("fix_token")).token}`
+        }
+      }).then(res => res.json())
+    }
 
 
 export const getServiceRequestById = async (pk) => {

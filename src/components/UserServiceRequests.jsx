@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { getUserServiceRequests } from "../services/ServiceRequestService"
+import { getClosedUserServiceRequests, getUserServiceRequests } from "../services/ServiceRequestService"
 import { useNavigate } from "react-router-dom"
 import { Card } from "react-bootstrap"
 import "./serviceticket.css"
 
-export const UserServiceRequests = () => {
+export const UserServiceRequests = ({closed}) => {
     const navigate = useNavigate()
     const [serviceRequests, setServiceRequests] = useState([])
     const [userType, setUserType] = useState("")
@@ -29,9 +29,15 @@ export const UserServiceRequests = () => {
 
 
     const getAndSetServiceRequests = () => {
-        getUserServiceRequests().then((res) => {
+        !closed ? (
+            getUserServiceRequests().then((res) => {
+                setServiceRequests(res)
+            })
+        ) : (
+            getClosedUserServiceRequests().then((res) => {
             setServiceRequests(res)
-        })
+            })
+        )
     }
 
     useEffect(() => {

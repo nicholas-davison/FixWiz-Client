@@ -24,6 +24,7 @@ export const ApplicationViews = () => {
           <Route path="/service-requests" element={<AllServiceRequests/>} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/service-requests" element={<UserServiceRequests />} />
+          <Route path="/profile/closed-service-requests" element={<UserServiceRequests closed={true}/>} />
           <Route path="/service-requests/new" element={<ServiceRequestForm />} />
           <Route path="/service-requests/:serviceTicketId" element={<ServiceRequestDetail />} />
           <Route path="/service-requests/:serviceTicketId/edit" element={<ServiceRequestForm />} />
