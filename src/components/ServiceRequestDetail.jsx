@@ -68,11 +68,14 @@ export const ServiceRequestDetail = () => {
                     </>
                 ) : (
                     currentTicket.contractor ? (
+                        currentTicket.status === 'closed' ? (
+                            "**To Reopen ticket please contact an administrator**"
+                        ) : (
                         <>
                         <Button variant="warning" onClick={() => {handleClaimTicket(false)}}>Unclaim</Button>{' '}
                         <Button variant="success" onClick={handleCompleteTicket}>Mark Complete</Button>
                         </>
-
+                        )
                     ) : (
                         <Button variant="warning" onClick={() => {handleClaimTicket(true)}}>Claim</Button>
                     )                   
