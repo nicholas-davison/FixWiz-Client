@@ -8,6 +8,12 @@ export const ServiceRequestDetail = () => {
     const {serviceTicketId} = useParams()
     const [currentTicket, setCurrentTicket] = useState({categories: []})
     const navigate = useNavigate()
+    const [userType, setUserType] = useState("");
+
+    useEffect(() => {
+        const type = JSON.parse(localStorage.getItem("user_type"))
+        setUserType(type);
+    }, []);
 
     const getAndSetCurrentTicket = async () => {
         await getServiceRequestById(serviceTicketId).then(res => {
@@ -39,8 +45,21 @@ export const ServiceRequestDetail = () => {
                     <Card.Text >
                     {currentTicket.categories.map(cat => cat.name).join(', ')}</Card.Text>
                 <Card.Footer >
-                    <Button variant="warning" onClick={() => navigate("edit")}>Edit</Button>{' '}
-                    <Button variant="danger" onClick={handleDeleteRequest}>Delete</Button>
+                {userType ? (
+                userType === "customer" ? (
+                    <>
+                        <Button variant="warning" onClick={() => navigate("edit")}>Edit</Button>{' '}
+                        <Button variant="danger" onClick={handleDeleteRequest}>Delete</Button>
+                    </>
+                ) : (
+                    <>
+                        <Button variant="warning" onClick={() => navigate("/")}>Claim</Button>{' '}
+                    </>
+                )
+            ) : (
+                <h1>Loading...</h1>
+            )}
+                    
                 </Card.Footer>
                 </Card.Body>
             </Card>

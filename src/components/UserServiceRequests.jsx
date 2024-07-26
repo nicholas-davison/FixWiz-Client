@@ -7,7 +7,14 @@ import "./serviceticket.css"
 export const UserServiceRequests = () => {
     const navigate = useNavigate()
     const [serviceRequests, setServiceRequests] = useState([])
-    const userType = localStorage.getItem("user_type")
+    const [userType, setUserType] = useState("")
+
+    useEffect(() => {
+        const type = JSON.parse(localStorage.getItem("user_type"))
+        setUserType(type);
+    }, [])
+
+
 
     const getBorderColor = (urgencyLevel) => {
         switch (urgencyLevel) {
@@ -35,12 +42,14 @@ export const UserServiceRequests = () => {
 
     return (
         <>
-        {userType === "customer" ? (
-            <h1>My Service Tickets</h1>
-        ) : (
-            <h1>My Open Jobs</h1>
-        )
-        }
+        
+        {userType && (
+                userType === "customer" ? (
+                    <h1>My Service Tickets</h1>
+                ) : (
+                    <h1>My Open Jobs</h1>
+                )
+            )}
             <div className="ticket-container">
                 {serviceRequests.map((ticket) => {
 

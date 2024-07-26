@@ -24,9 +24,11 @@ export const NavBar = () => {
                             </>                  
                         }
                         <Nav.Link href="/profile">Profile</Nav.Link>
-                        <Nav.Link href="" onClick={() => {localStorage.removeItem("fix_token")
-                                                            navigate('/login')
-                                                            }}>Logout</Nav.Link>
+                        <Nav.Link href="" onClick={() => {
+                            localStorage.removeItem("fix_token")
+                            localStorage.removeItem("user_type")
+                            navigate('/login')
+                            }}>Logout</Nav.Link>
                     </Nav>                                                      
                 </Navbar.Collapse>
             </Container>

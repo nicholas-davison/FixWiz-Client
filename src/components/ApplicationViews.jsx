@@ -1,5 +1,4 @@
 //import "./App.css"
-import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Authorized } from "./auth.jsx"
 import { Login } from "../pages/Login.jsx"
@@ -13,16 +12,16 @@ import { AllServiceRequests } from './AllServiceRequests.jsx'
 
 
 export const ApplicationViews = () => {
-
   
+
     return (
     <BrowserRouter>
       <Routes>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login/>} />
+        <Route path="register" element={<Register/>} />
         <Route element={<Authorized />}>
           <Route path="/" element={<Home />} />
-          <Route path="/service-requests" element={<AllServiceRequests />} />
+          <Route path="/service-requests" element={<AllServiceRequests/>} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/service-requests" element={<UserServiceRequests />} />
           <Route path="/service-requests/new" element={<ServiceRequestForm />} />
