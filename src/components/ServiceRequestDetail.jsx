@@ -42,6 +42,7 @@ export const ServiceRequestDetail = () => {
 
     const handleCompleteTicket = () => {
         updateServiceRequest(serviceTicketId, {"date_completed": null})
+        navigate('/profile/service-requests')
     }
 
 
@@ -69,7 +70,7 @@ export const ServiceRequestDetail = () => {
                     currentTicket.contractor ? (
                         <>
                         <Button variant="warning" onClick={() => {handleClaimTicket(false)}}>Unclaim</Button>{' '}
-                        <Button variant="success" >Mark Complete</Button>
+                        <Button variant="success" onClick={handleCompleteTicket}>Mark Complete</Button>
                         </>
 
                     ) : (
