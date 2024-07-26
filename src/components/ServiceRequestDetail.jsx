@@ -37,10 +37,12 @@ export const ServiceRequestDetail = () => {
             ) : (
                 updateServiceRequest(serviceTicketId, {"remove_contractor": "", "date_unclaimed": null})
         )
-            navigate('/profile/service-requests')
-        
+        navigate('/profile/service-requests')
     }
 
+    const handleCompleteTicket = () => {
+        updateServiceRequest(serviceTicketId, {"date_completed": null})
+    }
 
 
     return (
