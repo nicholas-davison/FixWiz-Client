@@ -5,12 +5,12 @@ import "./intro.css"
 
 export const Register = () => {
     const [email, setEmail] = useState("admina@straytor.com")
-    const [password, setPassword] = useState("Admin8*")
-    const [firstName, setFirstName] = useState("Admina")
-    const [lastName, setLastName] = useState("Straytor")
-    const [username, setUsername] = useState("admina")
-    const [phoneNumber, setPhoneNumber] = useState("111111111")
-    const [address, setAddress] = useState("123 Main St, Nashville, TN 37212")
+    const [password, setPassword] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [username, setUsername] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("")
+    const [address, setAddress] = useState("")
     const [isContractor, setIsContractor] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const navigate = useNavigate()
@@ -71,7 +71,7 @@ export const Register = () => {
                                 id="firstName"
                                 value={firstName}
                                 onChange={evt => setFirstName(evt.target.value)}
-                                placeholder=""
+                                placeholder="First Name"
                                 required 
                                 autoFocus 
                             />
@@ -83,7 +83,7 @@ export const Register = () => {
                                 id="lastName"
                                 value={lastName}
                                 onChange={evt => setLastName(evt.target.value)}
-                                placeholder=""
+                                placeholder="Last Name"
                                 required 
                             />
                         </Form.Group>
@@ -94,7 +94,7 @@ export const Register = () => {
                                 id="username"
                                 value={username}
                                 onChange={evt => setUsername(evt.target.value)}
-                                placeholder=""
+                                placeholder="Username"
                                 required 
                             />
                         </Form.Group>
@@ -116,7 +116,7 @@ export const Register = () => {
                                 id="phoneNumber"
                                 value={phoneNumber}
                                 onChange={evt => setPhoneNumber(evt.target.value)}
-                                placeholder=""
+                                placeholder="Phone Number"
                                 required 
                             />
                         </Form.Group>
@@ -127,7 +127,7 @@ export const Register = () => {
                                 id="address"
                                 value={address}
                                 onChange={evt => setAddress(evt.target.value)}
-                                placeholder=""
+                                placeholder="Address"
                                 required 
                             />
                         </Form.Group>

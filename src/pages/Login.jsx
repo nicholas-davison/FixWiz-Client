@@ -4,8 +4,8 @@ import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap"
 import "./intro.css"
 
 export const Login = () => {
-    const [username, setUsername] = useState("kevin")
-    const [password, setPassword] = useState("Admin8*")
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
     const [showModal, setShowModal] = useState(false)
     const navigate = useNavigate()
 
