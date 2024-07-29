@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap"
 import "./intro.css"
 
 export const Register = () => {
@@ -11,7 +12,7 @@ export const Register = () => {
     const [phoneNumber, setPhoneNumber] = useState("111111111")
     const [address, setAddress] = useState("123 Main St, Nashville, TN 37212")
     const [isContractor, setIsContractor] = useState(false)
-    const existDialog = useRef()
+    const [showModal, setShowModal] = useState(false)
     const navigate = useNavigate()
 
     const handleRegister = (e) => {
@@ -37,107 +38,131 @@ export const Register = () => {
                 
                 if (authInfo && authInfo.token) {
                     localStorage.setItem("fix_token", JSON.stringify(authInfo))
+                    localStorage.setItem("user_type", JSON.stringify(authInfo.user_type))
                     navigate("/")
                 } else {
-                    existDialog.current.showModal()
+                    showModal(true)
                 }
             })
     }
 
     return (
-        <main className="container--login">
-            <dialog className="dialog dialog--auth" ref={existDialog}>
-                <div>User does not exist</div>
-                <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
-            </dialog>
+        <Container className="container--login mt-5">
+            <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>User does not exist</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Button variant="primary" onClick={() => setShowModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Body>
+            </Modal>
 
-            <section>
-                <form className="form--login" onSubmit={handleRegister}>
-                    <h1 className="text-4xl mt-7 mb-3">FixWiz</h1>
-                    <h2 className="text-xl mb-10">Register new account</h2>
-                    <fieldset className="mb-4">
-                        <label htmlFor="firstName"> First name </label>
-                        <input type="text" id="firstName"
-                            value={firstName}
-                            onChange={evt => setFirstName(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
-                    </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="lastName"> Last name </label>
-                        <input type="text" id="lastName"
-                            value={lastName}
-                            onChange={evt => setLastName(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
-                    </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="username"> Username </label>
-                        <input type="text" id="username"
-                            value={username}
-                            onChange={evt => setUsername(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
-                    </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="inputPassword"> Password </label>
-                        <input type="password" id="inputPassword"
-                            value={password}
-                            onChange={evt => setPassword(evt.target.value)}
-                            className="form-control"
-                            placeholder="Password"
-                        />
-                    </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="phoneNumber"> Phone Number </label>
-                        <input type="text" id="phoneNumber"
-                            value={phoneNumber}
-                            onChange={evt => setPhoneNumber(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
-                    </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="address"> Address </label>
-                        <input type="text" id="address"
-                            value={address}
-                            onChange={evt => setAddress(evt.target.value)}
-                            className="form-control"
-                            placeholder=""
-                            required autoFocus />
-                    </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="inputEmail"> Email address </label>
-                        <input type="email" id="inputEmail"
-                            value={email}
-                            onChange={evt => setEmail(evt.target.value)}
-                            className="form-control"
-                            placeholder="Email address"
-                            required autoFocus />
-                    </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="selectContractor"> Are you a contractor? </label>
-                        <input type="checkbox" id="selectContractor"
-                            checked={isContractor}
-                            onChange={evt => setIsContractor(evt.target.checked)}
-                            style={{ marginLeft: '10px' }}
-                            autoFocus />
-                    </fieldset>
-                    <fieldset>
-                        <button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">
+            <Row className="justify-content-md-center">
+                <Col md={6}>
+                    <Form className="form--login" onSubmit={handleRegister}>
+                        <h1 className="text-4xl mt-7 mb-3">FixWiz</h1>
+                        <h2 className="text-xl mb-10">Register new account</h2>
+                        <Form.Group className="mb-4">
+                            <Form.Label htmlFor="firstName">First name</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                id="firstName"
+                                value={firstName}
+                                onChange={evt => setFirstName(evt.target.value)}
+                                placeholder=""
+                                required 
+                                autoFocus 
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label htmlFor="lastName">Last name</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                id="lastName"
+                                value={lastName}
+                                onChange={evt => setLastName(evt.target.value)}
+                                placeholder=""
+                                required 
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label htmlFor="username">Username</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                id="username"
+                                value={username}
+                                onChange={evt => setUsername(evt.target.value)}
+                                placeholder=""
+                                required 
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label htmlFor="inputPassword">Password</Form.Label>
+                            <Form.Control 
+                                type="password" 
+                                id="inputPassword"
+                                value={password}
+                                onChange={evt => setPassword(evt.target.value)}
+                                placeholder="Password"
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label htmlFor="phoneNumber">Phone Number</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                id="phoneNumber"
+                                value={phoneNumber}
+                                onChange={evt => setPhoneNumber(evt.target.value)}
+                                placeholder=""
+                                required 
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label htmlFor="address">Address</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                id="address"
+                                value={address}
+                                onChange={evt => setAddress(evt.target.value)}
+                                placeholder=""
+                                required 
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label htmlFor="inputEmail">Email address</Form.Label>
+                            <Form.Control 
+                                type="email" 
+                                id="inputEmail"
+                                value={email}
+                                onChange={evt => setEmail(evt.target.value)}
+                                placeholder="Email address"
+                                required 
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Check 
+                                type="checkbox" 
+                                id="selectContractor"
+                                label="Are you a contractor?"
+                                checked={isContractor}
+                                onChange={evt => setIsContractor(evt.target.checked)}
+                                style={{ marginLeft: '10px' }}
+                            />
+                        </Form.Group>
+                        <Button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">
                             Register
-                        </button>
-                    </fieldset>
-                </form>
-            </section>
-            <div className="loginLinks">
-                <section className="link--register">
-                    <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" to="/login">Already have an account?</Link>
-                </section>
-            </div>
-        </main>
+                        </Button>
+                    </Form>
+                    <div className="loginLinks mt-3">
+                        <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" to="/login">
+                            Already have an account?
+                        </Link>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
     )
 }
