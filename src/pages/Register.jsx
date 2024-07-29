@@ -1,14 +1,16 @@
 import React, { useRef, useState } from "react"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"
+import "./intro.css"
 
 export const Register = () => {
     const [email, setEmail] = useState("admina@straytor.com")
-    const [password, setPassword] = useState("straytor")
+    const [password, setPassword] = useState("Admin8*")
     const [firstName, setFirstName] = useState("Admina")
     const [lastName, setLastName] = useState("Straytor")
     const [username, setUsername] = useState("admina")
     const [phoneNumber, setPhoneNumber] = useState("111111111")
     const [address, setAddress] = useState("123 Main St, Nashville, TN 37212")
+    const [isContractor, setIsContractor] = useState(false)
     const existDialog = useRef()
     const navigate = useNavigate()
 
@@ -21,7 +23,10 @@ export const Register = () => {
                 "email": email,
                 "password": password,
                 "first_name": firstName,
-                "last_name": lastName
+                "last_name": lastName,
+                "phone_number": phoneNumber,
+                "address": address,
+                "is_contractor": isContractor
             }),
             headers: {
                 "Content-Type": "application/json"
@@ -69,13 +74,22 @@ export const Register = () => {
                             required autoFocus />
                     </fieldset>
                     <fieldset className="mb-4">
-                        <label htmlFor="username"> Last name </label>
+                        <label htmlFor="username"> Username </label>
                         <input type="text" id="username"
                             value={username}
                             onChange={evt => setUsername(evt.target.value)}
                             className="form-control"
                             placeholder=""
                             required autoFocus />
+                    </fieldset>
+                    <fieldset className="mb-4">
+                        <label htmlFor="inputPassword"> Password </label>
+                        <input type="password" id="inputPassword"
+                            value={password}
+                            onChange={evt => setPassword(evt.target.value)}
+                            className="form-control"
+                            placeholder="Password"
+                        />
                     </fieldset>
                     <fieldset className="mb-4">
                         <label htmlFor="phoneNumber"> Phone Number </label>
@@ -105,13 +119,12 @@ export const Register = () => {
                             required autoFocus />
                     </fieldset>
                     <fieldset className="mb-4">
-                        <label htmlFor="inputPassword"> Password </label>
-                        <input type="password" id="inputPassword"
-                            value={password}
-                            onChange={evt => setPassword(evt.target.value)}
-                            className="form-control"
-                            placeholder="Password"
-                        />
+                        <label htmlFor="selectContractor"> Are you a contractor? </label>
+                        <input type="checkbox" id="selectContractor"
+                            checked={isContractor}
+                            onChange={evt => setIsContractor(evt.target.checked)}
+                            style={{ marginLeft: '10px' }}
+                            autoFocus />
                     </fieldset>
                     <fieldset>
                         <button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">

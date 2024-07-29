@@ -56,21 +56,26 @@ export const ServiceRequestForm = () => {
 
     const handleSaveNewServiceRequest = (event) => {
         event.preventDefault()
-        const newServiceRequestObj = {
-            "urgency_level": urgency,
-            "description": description,
-            "title": title,
-            "category_ids": selectedCategories
-        }
-        if (serviceTicketId) {
-            updateServiceRequest(serviceTicketId, newServiceRequestObj).then(() => {
-                navigate('/profile/service-requests')
-            })
+        if (title && urgency && description && selectedCategories.length > 0) {
+            const newServiceRequestObj = {
+                "urgency_level": urgency,
+                "description": description,
+                "title": title,
+                "category_ids": selectedCategories
+            }
+            if (serviceTicketId) {
+                updateServiceRequest(serviceTicketId, newServiceRequestObj).then(() => {
+                    navigate('/profile/service-requests')
+                })
+            }
+            else {
+                saveNewServiceRequest(newServiceRequestObj).then(() => {
+                    navigate('/profile/service-requests')
+                })
+            }
         }
         else {
-            saveNewServiceRequest(newServiceRequestObj).then(() => {
-                navigate('/profile/service-requests')
-            })
+            window.alert('Please fill in all required fields and select at least one category.')
         }
         
     }
@@ -88,12 +93,13 @@ export const ServiceRequestForm = () => {
                                 value={title}
                                 name="title"
                                 onChange={handleTitleChange}
+                                required
                             />
                     </div>
                     <br/>
                 </Form.Group>  
                 <Form.Group>
-                    <Form.Select value={urgency} onChange={handleUrgencyChange}>
+                    <Form.Select value={urgency} onChange={handleUrgencyChange} required>
                         <option value="" >How urgent is this request?</option>
                         <option value="high">High Priority</option>
                         <option value="medium">Medium Priority</option>
@@ -125,11 +131,13 @@ export const ServiceRequestForm = () => {
                                 value={description}
                                 name="description"
                                 onChange={handleDescriptionChange}
+                                required
                             />
                     </div>
                 </Form.Group> 
                 <br/>   
-                <Button variant="success" onClick={handleSaveNewServiceRequest}>Submit</Button>
+                <Button variant="success" onClick={handleSaveNewServiceRequest}>Submit</Button>{' '}
+                <Button variant="warning" onClick={() => {navigate('/profile/service-requests')}}>Cancel</Button>
             </Form>
         </div>
     )

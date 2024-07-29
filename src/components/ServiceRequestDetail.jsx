@@ -62,10 +62,14 @@ export const ServiceRequestDetail = () => {
                 <Card.Footer >
                 {
                 userType === "customer" ? (
+                    currentTicket.status === 'closed' ? (
+                        "**To Reopen ticket please contact an administrator**"
+                    ) : (
                     <>
                         <Button variant="warning" onClick={() => navigate("edit")}>Edit</Button>{' '}
                         <Button variant="danger" onClick={handleDeleteRequest}>Delete</Button>
                     </>
+                    )
                 ) : (
                     currentTicket.contractor ? (
                         currentTicket.status === 'closed' ? (

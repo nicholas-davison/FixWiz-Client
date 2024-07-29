@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"
+import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap"
+import "./intro.css"
 
 export const Login = () => {
     const [username, setUsername] = useState("kevin")
@@ -35,7 +37,7 @@ export const Login = () => {
                 <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
             </dialog>
 
-            <section>
+            <section >
                 <form className="form--login" onSubmit={handleLogin}>
                     <h1 className="text-4xl mt-7 mb-3">FixWiz</h1>
                     <h2 className="text-xl mb-10">Please sign in</h2>
