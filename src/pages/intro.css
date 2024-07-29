@@ -1,7 +1,7 @@
 
 .intro-card {
+    border: 2px solid #007bff;
     text-align: center;
-    margin-top: 20%;
     padding: 10% 25%;
 }
 
@@ -14,3 +14,8 @@
     font-size: 1.5rem;
 }
 
+.container--bordered {
+    border: 2px solid #007bff; /* Blue border with 2px thickness */
+    border-radius: 8px; /* Optional: rounded corners */
+    padding: 15px; /* Optional: padding inside the container */
+}

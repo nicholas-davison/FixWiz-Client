@@ -47,7 +47,7 @@ export const Register = () => {
     }
 
     return (
-        <Container className="container--login mt-5">
+        <Container className="container--bordered mt-5">
             <Modal show={showModal} onHide={() => setShowModal(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>User does not exist</Modal.Title>
