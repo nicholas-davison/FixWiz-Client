@@ -1,9 +1,15 @@
+import { useEffect } from "react"
 import { Button, Card } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 
-export const Profile = ({currentUser}) => {
+export const Profile = ({currentUser, getAndSetCurrentUser}) => {
 
     const navigate = useNavigate()
+
+    useEffect(() => {
+        getAndSetCurrentUser()
+      },[])
+    
 
     return (
         <>

@@ -17,15 +17,12 @@ import { EditProfile } from "./EditProfile.jsx"
 export const ApplicationViews = () => {
   
   const [currentUser, setCurrentUser] = useState({})
-
-
+  
   const getAndSetCurrentUser = async () => {
      await getCurrentUser().then((res) => {setCurrentUser(res)})
   }
 
-  useEffect(() => {
-    getAndSetCurrentUser()
-  },[])
+
 
     return (
     <BrowserRouter>
@@ -35,7 +32,7 @@ export const ApplicationViews = () => {
         <Route element={<Authorized />}>
           <Route path="/" element={<Home />} />
           <Route path="/service-requests" element={<AllServiceRequests/>} />
-          <Route path="/profile" element={<Profile currentUser={currentUser}/>} />
+          <Route path="/profile" element={<Profile currentUser={currentUser} getAndSetCurrentUser={getAndSetCurrentUser}/>} />
           <Route path="/profile/edit" element={<EditProfile currentUser={currentUser} getAndSetCurrentUser={getAndSetCurrentUser}/>} />
           <Route path="/profile/service-requests" element={<UserServiceRequests />} />
           <Route path="/profile/closed-service-requests" element={<UserServiceRequests closed={true}/>} />
