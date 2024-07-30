@@ -76,6 +76,11 @@ export const UserServiceRequests = ({closed}) => {
                             >
                                 <Card.Header className="header-container">
                                     <span>Service Request # {ticket.id}</span>
+                                    {ticket.date_claimed ? (
+                                        <span>Date Claimed: {ticket.date_claimed}</span>
+                                    ) : (
+                                      ""
+                                        )}
                                     <span>Status: {ticket.status}</span>
                                 </Card.Header>
                                 <Card.Body>

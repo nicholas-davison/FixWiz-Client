@@ -3,17 +3,21 @@ import { deleteServiceRequest, getServiceRequestById, updateServiceRequest } fro
 import { useEffect, useState } from "react"
 import { Button, Card } from "react-bootstrap"
 import "./serviceticket.css"
+import { getContractorById } from "../services/UserService"
 
 export const ServiceRequestDetail = () => {
     const {serviceTicketId} = useParams()
     const [currentTicket, setCurrentTicket] = useState({categories: []})
+    const [contractor, setContractor] = useState()
     const navigate = useNavigate()
     const [userType, setUserType] = useState("");
+
 
     useEffect(() => {
         const type = JSON.parse(localStorage.getItem("user_type"))
         setUserType(type);
     }, []);
+
 
     const getAndSetCurrentTicket = async () => {
         await getServiceRequestById(serviceTicketId).then(res => {
@@ -21,15 +25,34 @@ export const ServiceRequestDetail = () => {
         })
     }
 
+
     useEffect(() => {
         getAndSetCurrentTicket()
     }, [])
+
+
+    useEffect(() => {
+        const fetchContractor = async () => {
+            if (currentTicket.contractor && userType === "customer") {
+                try {
+                    const contractorResponse = await getContractorById(currentTicket.contractor);
+                    setContractor(contractorResponse);
+                } catch (error) {
+                    console.error("Error fetching contractor:", error);
+                }
+            }
+        };
+
+        fetchContractor();
+    }, [currentTicket, userType])
+
 
     const handleDeleteRequest = () => {
         deleteServiceRequest(serviceTicketId).then(() => {
             navigate('/profile/service-requests')
         })
     }
+
 
     const handleClaimTicket = (claim) => {
         claim ? (
@@ -39,6 +62,7 @@ export const ServiceRequestDetail = () => {
         )
         navigate('/profile/service-requests')
     }
+
 
     const handleCompleteTicket = () => {
         updateServiceRequest(serviceTicketId, {"date_completed": null})
@@ -51,7 +75,12 @@ export const ServiceRequestDetail = () => {
             <Card className="ticket-detail-container">
                 <Card.Header className="header-container" as="h5">
                     <span>Service Request # {serviceTicketId}</span>
-                    <span>Urgency: {currentTicket.urgency_level}</span>
+                    {currentTicket.date_claimed ? (
+                        <span>Date Claimed: {currentTicket.date_claimed}</span>
+                        ) : (
+                            ""
+                            )}
+                            <span>Urgency: {currentTicket.urgency_level}</span>
                 </Card.Header>
                 <Card.Body>
                     <Card.Title>{currentTicket.title}</Card.Title>
@@ -89,6 +118,18 @@ export const ServiceRequestDetail = () => {
                 </Card.Footer>
                 </Card.Body>
             </Card>
+            { contractor ? (
+                <Card className="mt-2 p-3">
+                    <Card.Title>Contractor Details:</Card.Title>
+                    <Card.Text className="header-container" >
+                        <span>{contractor.user.first_name} {contractor.user.last_name}</span>
+                        <span>Email: {contractor.user.email}</span>
+                        <span>Phone Number: {contractor.phone_number}</span>
+                    </Card.Text>
+                </Card>
+            ) : (
+                ""
+            )}
         </div>
     )
 }
