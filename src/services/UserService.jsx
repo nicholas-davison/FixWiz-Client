@@ -19,3 +19,12 @@ export const saveUserProfileChanges = async (userObj, pk) => {
     body: JSON.stringify(userObj)
   })
 }
+
+export const getContractorById = async (pk) => {
+  return await fetch(`http://localhost:8000/users/${pk}`, {
+    headers: {
+      Authorization: `Token ${JSON.parse(localStorage.getItem("fix_token")).token}`,
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json())
+}
