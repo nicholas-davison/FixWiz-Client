@@ -75,7 +75,12 @@ export const ServiceRequestDetail = () => {
             <Card className="ticket-detail-container">
                 <Card.Header className="header-container" as="h5">
                     <span>Service Request # {serviceTicketId}</span>
-                    <span>Urgency: {currentTicket.urgency_level}</span>
+                    {currentTicket.date_claimed ? (
+                        <span>Date Claimed: {currentTicket.date_claimed}</span>
+                        ) : (
+                            ""
+                            )}
+                            <span>Urgency: {currentTicket.urgency_level}</span>
                 </Card.Header>
                 <Card.Body>
                     <Card.Title>{currentTicket.title}</Card.Title>

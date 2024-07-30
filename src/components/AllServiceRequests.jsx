@@ -54,7 +54,7 @@ export const AllServiceRequests = () => {
                     return (
                             <Card 
                                 key={ticket.id} 
-                                style={{ width: '75%', borderWidth: '1.75px', cursor: 'pointer', marginTop: '20px' }}
+                                style={{ width: '75%', borderWidth: '1.75px', cursor: 'pointer', marginBottom: '20px' }}
                                 onClick={() => navigate(`/service-requests/${ticket.id}`)}
                             >
                                 <Card.Header className="header-container">
