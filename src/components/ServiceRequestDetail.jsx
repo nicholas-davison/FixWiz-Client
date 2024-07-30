@@ -7,6 +7,7 @@ import "./serviceticket.css"
 export const ServiceRequestDetail = () => {
     const {serviceTicketId} = useParams()
     const [currentTicket, setCurrentTicket] = useState({categories: []})
+    const [contractor, setContractor] = useState({})
     const navigate = useNavigate()
     const [userType, setUserType] = useState("");
 
