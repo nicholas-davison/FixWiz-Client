@@ -51,9 +51,17 @@ export const UserServiceRequests = ({closed}) => {
         
         {userType && (
                 userType === "customer" ? (
-                    <h1>My Service Tickets</h1>
+                    closed ? (
+                        <h1>My Closed Tickets</h1>
+                    ) : (
+                        <h1>My Service Tickets</h1>
+                    )
                 ) : (
-                    <h1>My Open Jobs</h1>
+                    closed ? (
+                        <h1>Completed Jobs</h1>  
+                    ) : (
+                        <h1>My Open Jobs</h1>
+                    )
                 )
             )}
             <div className="ticket-container">

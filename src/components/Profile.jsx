@@ -1,21 +1,16 @@
-import { useEffect, useState } from "react"
-import { getCurrentUser } from "../services/UserService"
+import { useEffect } from "react"
 import { Button, Card } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
 
-export const Profile = () => {
+export const Profile = ({currentUser, getAndSetCurrentUser}) => {
 
-    const [currentUser, setCurrentUser] = useState({})
-
-
-    const getAndSetCurrentUser = async () => {
-       await getCurrentUser().then((res) => {setCurrentUser(res)})
-    }
+    const navigate = useNavigate()
 
     useEffect(() => {
         getAndSetCurrentUser()
-    },[])
-
+      },[])
     
+
     return (
         <>
             <Card>
@@ -25,7 +20,7 @@ export const Profile = () => {
                 <Card.Body>Phone Number: {currentUser.phone_number}</Card.Body>
                 <Card.Body>Address: {currentUser.address}</Card.Body>
                 <Card.Body>Date Joined: {currentUser.user?.date_joined}</Card.Body>
-                <Button>Edit Profile</Button>
+                <Button onClick={() => {navigate('/profile/edit')}}>Edit Profile</Button>
             </Card>
     
         </>

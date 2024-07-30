@@ -9,10 +9,20 @@ import { ServiceRequestDetail } from './ServiceRequestDetail.jsx'
 import { ServiceRequestForm } from './ServiceRequestForm.jsx'
 import { Profile } from './Profile.jsx'
 import { AllServiceRequests } from './AllServiceRequests.jsx'
+import { getCurrentUser } from "../services/UserService"
+import { useEffect, useState } from "react"
+import { EditProfile } from "./EditProfile.jsx"
 
 
 export const ApplicationViews = () => {
   
+  const [currentUser, setCurrentUser] = useState({})
+  
+  const getAndSetCurrentUser = async () => {
+     await getCurrentUser().then((res) => {setCurrentUser(res)})
+  }
+
+
 
     return (
     <BrowserRouter>
@@ -22,7 +32,8 @@ export const ApplicationViews = () => {
         <Route element={<Authorized />}>
           <Route path="/" element={<Home />} />
           <Route path="/service-requests" element={<AllServiceRequests/>} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile currentUser={currentUser} getAndSetCurrentUser={getAndSetCurrentUser}/>} />
+          <Route path="/profile/edit" element={<EditProfile currentUser={currentUser} getAndSetCurrentUser={getAndSetCurrentUser}/>} />
           <Route path="/profile/service-requests" element={<UserServiceRequests />} />
           <Route path="/profile/closed-service-requests" element={<UserServiceRequests closed={true}/>} />
           <Route path="/service-requests/new" element={<ServiceRequestForm />} />

@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"
+import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap"
+import "./intro.css"
 
 export const Login = () => {
-    const [username, setUsername] = useState("kevin")
-    const [password, setPassword] = useState("Admin8*")
-    const existDialog = useRef()
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [showModal, setShowModal] = useState(false)
     const navigate = useNavigate()
 
     const handleLogin = (e) => {
@@ -23,52 +25,63 @@ export const Login = () => {
                     localStorage.setItem("user_type", JSON.stringify(authInfo.user_type))
                     navigate("/")
                 } else {
-                    existDialog.current.showModal()
+                    setShowModal(true)
                 }
             })
     }
 
     return (
-        <main className="container--login">
-            <dialog className="dialog dialog--auth" ref={existDialog}>
-                <div>User does not exist</div>
-                <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
-            </dialog>
+        <Container className="container--bordered mt-5">
+            <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>User does not exist</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Button variant="primary" onClick={() => setShowModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Body>
+            </Modal>
 
-            <section>
-                <form className="form--login" onSubmit={handleLogin}>
-                    <h1 className="text-4xl mt-7 mb-3">FixWiz</h1>
-                    <h2 className="text-xl mb-10">Please sign in</h2>
-                    <fieldset className="mb-4">
-                        <label htmlFor="inputUsername"> Username </label>
-                        <input type="username" id="inputUsername"
-                            value={username}
-                            onChange={evt => setUsername(evt.target.value)}
-                            className="form-control"
-                            placeholder="Username"
-                            required autoFocus />
-                    </fieldset>
-                    <fieldset className="mb-4">
-                        <label htmlFor="inputPassword"> Password </label>
-                        <input type="password" id="inputPassword"
-                            value={password}
-                            onChange={evt => setPassword(evt.target.value)}
-                            className="form-control"
-                            placeholder="Password"
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">
+            <Row className="justify-content-md-center">
+                <Col md={6}>
+                    <Form className="form--login" onSubmit={handleLogin}>
+                        <h1 className="text-4xl mt-7 mb-3">FixWiz</h1>
+                        <h2 className="text-xl mb-10">Please sign in</h2>
+                        <Form.Group className="mb-4">
+                            <Form.Label htmlFor="inputUsername">Username</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                id="inputUsername"
+                                value={username}
+                                onChange={evt => setUsername(evt.target.value)}
+                                placeholder="Username"
+                                required 
+                                autoFocus 
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label htmlFor="inputPassword">Password</Form.Label>
+                            <Form.Control 
+                                type="password" 
+                                id="inputPassword"
+                                value={password}
+                                onChange={evt => setPassword(evt.target.value)}
+                                placeholder="Password"
+                                required
+                            />
+                        </Form.Group>
+                        <Button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">
                             Sign in
-                        </button>
-                    </fieldset>
-                </form>
-            </section>
-            <div className="loginLinks">
-                <section className="link--register">
-                    <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" to="/register">Not a member yet?</Link>
-                </section>
-            </div>
-        </main>
+                        </Button>
+                    </Form>
+                    <div className="loginLinks mt-3">
+                        <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" to="/register">
+                            Not a member yet?
+                        </Link>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
     )
 }
