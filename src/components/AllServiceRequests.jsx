@@ -22,7 +22,7 @@ export const AllServiceRequests = () => {
 
 
     const handleFilter = (category, searchText) => {
-        let filtered = allOpenServiceRequests;
+        let filtered = allOpenServiceRequests
         
         if (category) {
             filtered = filtered.filter((ticket) => ticket.categories.some((cat) => cat.name === category))
@@ -31,11 +31,11 @@ export const AllServiceRequests = () => {
         if (searchText) {
             filtered = filtered.filter((ticket) =>
                 ticket.title.toLowerCase().includes(searchText.toLowerCase())
-            );
+            )
         }
 
-        setFilteredRequests(filtered);
-    };
+        setFilteredRequests(filtered)
+    }
 
     const categories = [
         ...new Set(

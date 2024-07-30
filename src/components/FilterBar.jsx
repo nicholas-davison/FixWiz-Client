@@ -1,19 +1,19 @@
-import { Form, FormControl } from "react-bootstrap";
-import { useState } from "react";
+import { Form, FormControl } from "react-bootstrap"
+import { useState } from "react"
 
 export const FilterBar = ({ categories, onFilter }) => {
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [searchText, setSearchText] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("")
+    const [searchText, setSearchText] = useState("")
 
     const handleCategoryChange = (e) => {
-        setSelectedCategory(e.target.value);
-        onFilter(e.target.value, searchText); // Apply filter when category changes
-    };
+        setSelectedCategory(e.target.value)
+        onFilter(e.target.value, searchText)
+    }
 
     const handleSearchChange = (e) => {
-        setSearchText(e.target.value);
-        onFilter(selectedCategory, e.target.value); // Apply filter as the user types
-    };
+        setSearchText(e.target.value)
+        onFilter(selectedCategory, e.target.value)
+    }
 
     return (
         <Form className="d-flex m-4 " >
@@ -39,5 +39,5 @@ export const FilterBar = ({ categories, onFilter }) => {
                 onChange={handleSearchChange}
             />
         </Form>
-    );
-};
+    )
+}
