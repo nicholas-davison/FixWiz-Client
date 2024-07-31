@@ -12,6 +12,7 @@ import { AllServiceRequests } from './AllServiceRequests.jsx'
 import { getCurrentUser } from "../services/UserService"
 import { useEffect, useState } from "react"
 import { EditProfile } from "./EditProfile.jsx"
+import NotificationFetcher from "./NotificationModal.jsx"
 
 
 export const ApplicationViews = () => {
@@ -26,6 +27,7 @@ export const ApplicationViews = () => {
 
     return (
     <BrowserRouter>
+    <NotificationFetcher />
       <Routes>
         <Route path="login" element={<Login/>} />
         <Route path="register" element={<Register/>} />
