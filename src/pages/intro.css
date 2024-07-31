@@ -7,7 +7,10 @@
 
 .intro-card-title {
     font-size: 3rem; 
-    font-weight: bold; 
+    font-weight: bold;
+    font-family: "Fugaz One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .intro-card-text {
@@ -19,4 +22,11 @@
     border: 2px solid #007bff; /* Blue border with 2px thickness */
     border-radius: 8px; /* Optional: rounded corners */
     padding: 15px; /* Optional: padding inside the container */
+}
+
+
+h1 {
+    font-family: "Fugaz One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
