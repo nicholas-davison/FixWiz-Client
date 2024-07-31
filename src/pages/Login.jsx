@@ -46,8 +46,8 @@ export const Login = () => {
             <Row className="justify-content-md-center">
                 <Col md={6}>
                     <Form className="form--login" onSubmit={handleLogin}>
-                        <h1 className="text-4xl mt-7 mb-3">FixWiz</h1>
-                        <h2 className="text-xl mb-10">Please sign in</h2>
+                        <h1 className="text-4xl mt-7 mb-3 text-center">FixWiz</h1>
+                        <h2 className="text-xl mb-10 text-center" >Please sign in</h2>
                         <Form.Group className="mb-4">
                             <Form.Label htmlFor="inputUsername">Username</Form.Label>
                             <Form.Control 

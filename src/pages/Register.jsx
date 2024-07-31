@@ -62,8 +62,8 @@ export const Register = () => {
             <Row className="justify-content-md-center">
                 <Col md={6}>
                     <Form className="form--login" onSubmit={handleRegister}>
-                        <h1 className="text-4xl mt-7 mb-3">FixWiz</h1>
-                        <h2 className="text-xl mb-10">Register new account</h2>
+                        <h1 className="text-4xl mt-7 mb-3 text-center">FixWiz</h1>
+                        <h2 className="text-xl mb-10 text-center">Register new account</h2>
                         <Form.Group className="mb-4">
                             <Form.Label htmlFor="firstName">First name</Form.Label>
                             <Form.Control 
