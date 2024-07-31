@@ -71,7 +71,8 @@ export const UserServiceRequests = ({closed}) => {
                             <Card 
                                 key={ticket.id} 
                                 border={getBorderColor(ticket.urgency_level)}
-                                style={{ width: '75%', borderWidth: '1.75px', cursor: 'pointer', marginTop: '20px' }}
+                                style={{ borderWidth: '2.5px' }}
+                                className="card-list-item"
                                 onClick={() => navigate(`/service-requests/${ticket.id}`)}
                             >
                                 <Card.Header className="header-container">

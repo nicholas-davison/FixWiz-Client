@@ -9,7 +9,14 @@ export const NavBar = () => {
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand href="/">FixWiz</Navbar.Brand>
+                <Navbar.Brand 
+                    style={{
+                        fontFamily: "'Fugaz One', sans-serif",
+                        fontWeight: 400,
+                        fontStyle: 'normal'
+                        }} 
+                    href="/">FixWiz
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
