@@ -6,7 +6,7 @@ export const Home = () => {
         <Card className="intro-card mt-5">
             <Card.Body>
                 <Card.Text className="intro-card-title">Welcome to FixWiz!</Card.Text>
-                <Card.Text className="intro-card-text">Shidders full!" -<cite>Cousin Eddie</cite></Card.Text>
+                <Card.Text className="intro-card-text">Connecting customers and fixers since 2024</Card.Text>
             </Card.Body>
         </Card>
     )

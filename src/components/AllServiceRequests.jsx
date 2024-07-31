@@ -3,6 +3,7 @@ import { getAllOpenServiceRequests } from "../services/ServiceRequestService"
 import { Card } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import { FilterBar } from "./FilterBar"
+import './serviceticket.css'
 
 export const AllServiceRequests = () => {
     const navigate = useNavigate()
@@ -19,6 +20,18 @@ export const AllServiceRequests = () => {
     useEffect(() => {
         getAndSetAllOpenServiceRequests()
     }, [])
+
+
+    const getBorderColor = (urgencyLevel) => {
+        switch (urgencyLevel) {
+            case 'high':
+                return 'danger';
+            case 'medium':
+                return 'warning';
+            case 'low':
+                return 'success';
+        }
+    }
 
 
     const handleFilter = (category, searchText) => {
@@ -53,8 +66,15 @@ export const AllServiceRequests = () => {
 
                     return (
                             <Card 
-                                key={ticket.id} 
-                                style={{ width: '75%', borderWidth: '1.75px', cursor: 'pointer', marginBottom: '20px' }}
+                                key={ticket.id}
+                                border={getBorderColor(ticket.urgency_level)}
+                                style={{ 
+                                    width: '75%', 
+                                    borderWidth: '2px', 
+                                    cursor: 'pointer', 
+                                    marginBottom: '20px', 
+                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' 
+                                    }}
                                 onClick={() => navigate(`/service-requests/${ticket.id}`)}
                             >
                                 <Card.Header className="header-container">

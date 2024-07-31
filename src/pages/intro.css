@@ -12,10 +12,15 @@
 
 .intro-card-text {
     font-size: 1.5rem;
+    font-style: italic;
 }
 
 .container--bordered {
     border: 2px solid #007bff; /* Blue border with 2px thickness */
     border-radius: 8px; /* Optional: rounded corners */
     padding: 15px; /* Optional: padding inside the container */
+}
+
+.form--login {
+    text-align: center;
 }
