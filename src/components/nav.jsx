@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavDropdown } from "react-bootstrap";
 
-export const NavBar = () => {
+export const NavBar = ({handleLogout}) => {
     const navigate = useNavigate()
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -39,8 +39,7 @@ export const NavBar = () => {
                         }
                         <Nav.Link href="/profile">Profile</Nav.Link>
                         <Nav.Link href="" onClick={() => {
-                            localStorage.removeItem("fix_token")
-                            localStorage.removeItem("user_type")
+                            handleLogout()
                             navigate('/login')
                             }}>Logout</Nav.Link>
                     </Nav>                                                      

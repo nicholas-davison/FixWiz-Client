@@ -1,5 +1,5 @@
 //import "./App.css"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom"
 import { Authorized } from "./auth.jsx"
 import { Login } from "../pages/Login.jsx"
 import { Register } from '../pages/Register.jsx'
@@ -16,7 +16,18 @@ import NotificationFetcher from "./NotificationModal.jsx"
 
 
 export const ApplicationViews = () => {
-  
+  const [notifications, setNotifications] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [shouldPoll, setShouldPoll] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("fix_token")
+    localStorage.removeItem("user_type")
+    setShouldPoll(false);
+    setNotifications([]);
+    setShowModal(false);
+  }
+
   const [currentUser, setCurrentUser] = useState({})
   
   const getAndSetCurrentUser = async () => {
@@ -27,11 +38,11 @@ export const ApplicationViews = () => {
 
     return (
     <BrowserRouter>
-    <NotificationFetcher />
+    <NotificationFetcher notifications={notifications} setNotifications={setNotifications} showModal={showModal} setShowModal={setShowModal} shouldPoll={shouldPoll} setShouldPoll={setShouldPoll}/>
       <Routes>
         <Route path="login" element={<Login/>} />
         <Route path="register" element={<Register/>} />
-        <Route element={<Authorized />}>
+        <Route element={<Authorized handleLogout={handleLogout}/>}>
           <Route path="/" element={<Home />} />
           <Route path="/service-requests" element={<AllServiceRequests/>} />
           <Route path="/profile" element={<Profile currentUser={currentUser} getAndSetCurrentUser={getAndSetCurrentUser}/>} />

@@ -54,11 +54,11 @@ export const ServiceRequestDetail = () => {
     }
 
 
-    const handleClaimTicket = (claim) => {
+    const handleClaimTicket = async (claim) => {
         claim ? (
-            updateServiceRequest(serviceTicketId, {"contractor": userType, "date_claimed": null})
+            await updateServiceRequest(serviceTicketId, {"contractor": userType, "date_claimed": null})
             ) : (
-                updateServiceRequest(serviceTicketId, {"remove_contractor": "", "date_unclaimed": null})
+                await updateServiceRequest(serviceTicketId, {"remove_contractor": "", "date_unclaimed": null})
         )
         navigate('/profile/service-requests')
     }
