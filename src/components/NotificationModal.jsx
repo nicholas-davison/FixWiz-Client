@@ -12,7 +12,7 @@ const NotificationModal = ({ show, handleClose, notifications }) => {
         <ul>
           {notifications.map(notification => (
             <li key={notification.id}>
-              <a href={notification.link}>{notification.message}</a>
+              <a href={notification.link} onClick={handleClose}>{notification.message}</a>
             </li>
           ))}
         </ul>
@@ -59,6 +59,7 @@ const NotificationFetcher = ({notifications, setNotifications, showModal, setSho
           }
         });
         const data = await response.json();
+        console.log(data)
         if (Array.isArray(data) && data.length > 0) {
           setNotifications(data);
           setShowModal(true);
