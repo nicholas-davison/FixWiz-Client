@@ -1,5 +1,5 @@
 //import "./App.css"
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Authorized } from "./auth.jsx"
 import { Login } from "../pages/Login.jsx"
 import { Register } from '../pages/Register.jsx'
@@ -10,7 +10,7 @@ import { ServiceRequestForm } from './ServiceRequestForm.jsx'
 import { Profile } from './Profile.jsx'
 import { AllServiceRequests } from './AllServiceRequests.jsx'
 import { getCurrentUser } from "../services/UserService"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { EditProfile } from "./EditProfile.jsx"
 import NotificationFetcher from "./NotificationModal.jsx"
 
@@ -19,6 +19,7 @@ export const ApplicationViews = () => {
   const [notifications, setNotifications] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [shouldPoll, setShouldPoll] = useState(false);
+  const [currentUser, setCurrentUser] = useState({})
 
   const handleLogout = () => {
     localStorage.removeItem("fix_token")
@@ -27,8 +28,6 @@ export const ApplicationViews = () => {
     setNotifications([]);
     setShowModal(false);
   }
-
-  const [currentUser, setCurrentUser] = useState({})
   
   const getAndSetCurrentUser = async () => {
      await getCurrentUser().then((res) => {setCurrentUser(res)})
@@ -38,7 +37,14 @@ export const ApplicationViews = () => {
 
     return (
     <BrowserRouter>
-    <NotificationFetcher notifications={notifications} setNotifications={setNotifications} showModal={showModal} setShowModal={setShowModal} shouldPoll={shouldPoll} setShouldPoll={setShouldPoll}/>
+    <NotificationFetcher 
+      notifications={notifications} 
+      setNotifications={setNotifications} 
+      showModal={showModal} 
+      setShowModal={setShowModal} 
+      shouldPoll={shouldPoll} 
+      setShouldPoll={setShouldPoll}
+      />
       <Routes>
         <Route path="login" element={<Login/>} />
         <Route path="register" element={<Register/>} />
