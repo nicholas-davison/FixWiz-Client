@@ -49,7 +49,7 @@ const NotificationFetcher = ({notifications, setNotifications, showModal, setSho
 
     const fetchNotifications = async () => {
       try {
-        const response = await fetch('http://localhost:8000/notifications', {
+        const response = await fetch('https://fixwiz-api-ui6w7.ondigitalocean.app/notifications', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const NotificationFetcher = ({notifications, setNotifications, showModal, setSho
   const handleClose = async () => {
     try {
       for (const notification of notifications) {
-        await fetch(`http://localhost:8000/notifications/${notification.id}`, {
+        await fetch(`https://fixwiz-api-ui6w7.ondigitalocean.app/notifications/${notification.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',

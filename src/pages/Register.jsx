@@ -17,7 +17,7 @@ export const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault()
-        fetch(`http://localhost:8000/register`, {
+        fetch(`https://fixwiz-api-ui6w7.ondigitalocean.app/register`, {
             method: "POST",
             body: JSON.stringify({
                 "username": username,
