@@ -1,6 +1,6 @@
 
 export const getAllOpenServiceRequests = async () => {
-  return await fetch('http://localhost:8000/service_requests', {
+  return await fetch('https://fixwiz-api-ui6w7.ondigitalocean.app/service_requests', {
     headers: {
         Authorization: `Token ${JSON.parse(localStorage.getItem("fix_token")).token}`
       }
@@ -10,7 +10,7 @@ export const getAllOpenServiceRequests = async () => {
 
 
 export const getUserServiceRequests = async () => {
-  return await fetch('http://localhost:8000/profile/service_requests', {
+  return await fetch('https://fixwiz-api-ui6w7.ondigitalocean.app/profile/service_requests', {
     headers: {
         Authorization: `Token ${JSON.parse(localStorage.getItem("fix_token")).token}`
       }
@@ -18,7 +18,7 @@ export const getUserServiceRequests = async () => {
   }
   
   export const getClosedUserServiceRequests = async () => {
-    return await fetch('http://localhost:8000/profile/service_requests?status=closed', {
+    return await fetch('https://fixwiz-api-ui6w7.ondigitalocean.app/profile/service_requests?status=closed', {
       headers: {
           Authorization: `Token ${JSON.parse(localStorage.getItem("fix_token")).token}`
         }
@@ -28,7 +28,7 @@ export const getUserServiceRequests = async () => {
 
 export const getServiceRequestById = async (pk) => {
   try {
-    const response = await fetch(`http://localhost:8000/service_requests/${pk}`, {
+    const response = await fetch(`https://fixwiz-api-ui6w7.ondigitalocean.app/service_requests/${pk}`, {
       headers: {
         Authorization: `Token ${JSON.parse(localStorage.getItem("fix_token")).token}`,
         'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ export const getServiceRequestById = async (pk) => {
 }
 
 export const saveNewServiceRequest = async (newServiceRequestObj) => {
-  return await fetch("http://localhost:8000/service_requests", {
+  return await fetch("https://fixwiz-api-ui6w7.ondigitalocean.app/service_requests", {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export const saveNewServiceRequest = async (newServiceRequestObj) => {
   }
   
   export const updateServiceRequest = async (pk, updatedServiceRequestObj) => {
-    return await fetch(`http://localhost:8000/service_requests/${pk}`, {
+    return await fetch(`https://fixwiz-api-ui6w7.ondigitalocean.app/service_requests/${pk}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export const saveNewServiceRequest = async (newServiceRequestObj) => {
     }
 
 export const deleteServiceRequest = async (pk) => {
-  return await fetch(`http://localhost:8000/service_requests/${pk}`, {
+  return await fetch(`https://fixwiz-api-ui6w7.ondigitalocean.app/service_requests/${pk}`, {
     method: "DELETE",
     headers: {
         "Content-Type": "application/json",

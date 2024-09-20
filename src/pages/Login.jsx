@@ -11,7 +11,7 @@ export const Login = () => {
 
     const handleLogin = (e) => {
         e.preventDefault()
-        fetch(`http://localhost:8000/login`, {
+        fetch(`https://fixwiz-api-ui6w7.ondigitalocean.app/login`, {
             method: "POST",
             body: JSON.stringify({ "username": username, "password": password }),
             headers: {
