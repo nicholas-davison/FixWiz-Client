@@ -71,11 +71,13 @@ export const Login = () => {
                                 required
                             />
                         </Form.Group>
-                        <Button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">
-                            Sign in
-                        </Button>
+                        <Form.Group className="center-button">
+                            <Button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">
+                                Sign in
+                            </Button>
+                        </Form.Group>
                     </Form>
-                    <div className="loginLinks mt-3">
+                    <div className="center-button loginLinks mt-3">
                         <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" to="/register">
                             Not a member yet?
                         </Link>

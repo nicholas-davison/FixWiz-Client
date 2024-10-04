@@ -152,11 +152,13 @@ export const Register = () => {
                                 style={{ marginLeft: '10px' }}
                             />
                         </Form.Group>
-                        <Button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">
-                            Register
-                        </Button>
+                        <Form.Group className="center-button">
+                            <Button type="submit" className="button p-3 rounded-md bg-blue-800 text-blue-100">
+                                Register
+                            </Button>
+                        </Form.Group>
                     </Form>
-                    <div className="loginLinks mt-3">
+                    <div className="center-button loginLinks mt-3">
                         <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" to="/login">
                             Already have an account?
                         </Link>
